@@ -3,4 +3,57 @@
   <groupId>com.kaishengit</groupId>
   <artifactId>mybatis</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
+
+	<!-- 配置常量 -->
+	<properties>
+		<mybatis-version>3.4.4</mybatis-version>
+		<junit-version>4.12</junit-version>
+		<mysql-version>5.1.40</mysql-version>
+		<slf4j-version>1.7.25</slf4j-version>
+	
+	</properties>	
+
+
+	<dependencies>
+	
+		<!-- 依赖junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+		</dependency>
+		
+		<!-- 依赖mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.40</version>
+		</dependency>
+	
+		<!-- 依赖MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis-version}</version>
+		</dependency>
+		
+		<!-- 日志依赖 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		
+		
+		
+	
+	
+	</dependencies>
 </project>
