@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--开启自动扫描-->
+    <context:component-scan base-package="com.kaishengit"/>
+    <!--读取properties配置文件-->
+    <context:property-placeholder location="classpath:config.properties"/>
+    <!--添加数据库连接池的配置DBCP2-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--配置JDBCTempplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!--配置JDBC事物管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--开启基于注解的事务管理-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+
+
+
+
+
+    <!-- 开启自动扫描 : 会自动扫描com.kaishengit包及其
+    子包中的加有特殊注解的类，并将这些类放入的Spring容器中-->
+   <!-- <context:component-scan base-package="com.kaishengit"/>
+    <aop:aspectj-autoproxy/>
+-->
+
+
+    <!-- id:spring中的bean名称，整个容器唯一
+        class：被管理的bean的完全限定名称
+
+        scope:singleton|propotype
+        lazy-init:懒加载
+     -->
+
+   <!-- <bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destory"
+          scope="singleton" lazy-init="true"/>
+-->
+   <!-- <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
+    <bean id="weixinDao" class="com.kaishengit.dao.WeixinDao"/>
+    <bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"/>-->
+
+    <!--AOP通知类-->
+   <!-- <bean id="aspectAdvice" class="com.kaishengit.aspect.AspectAdvice"/>-->
+    <!--AOP配置-->
+    <!--<aop:config>-->
+        <!--告诉Spring通知类是哪一个-->
+      <!--  <aop:aspect ref="aspectAdvice">-->
+            <!--切入点表达式：声明目标对象-->
+            <!--<aop:pointcut id="myPointCut" expression="execution(* com.kaishengit.service..*.*(..))"/>-->
+            <!--声明通知-->
+
+            <!--前置通知-->
+           <!-- <aop:before method="beforeAdvice" pointcut-ref="myPointCut"/>-->
+            <!--后置通知-->
+           <!-- <aop:after-returning method="afterReturningAdvice" pointcut-ref="myPointCut" returning="result"/>-->
+            <!--异常通知-->
+           <!-- <aop:after-throwing method="afterThrowingAdvice" pointcut-ref="myPointCut" throwing="ex"/>-->
+            <!--最终通知-->
+          <!--  <aop:after method="afterAdvice" pointcut-ref="myPointCut"/>-->
+            <!--环绕通知-->
+          <!--  <aop:around method="aroundAdvice" pointcut-ref="myPointCut"/>
+
+
+        </aop:aspect>
+    </aop:config>-->
+
+
+
+
+
+
+
+
+
+
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao" p:weixinDao-ref="weixinDao"/>-->
+
+   <!-- <bean id="userService" class="com.kaishengit.service.UserService">
+        &lt;!&ndash;<constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="weixinDao" ref="weixinDao"/>&ndash;&gt;
+
+        &lt;!&ndash;<constructor-arg index="0" ref="userDao"/>
+        <constructor-arg index="1" ref="weixinDao"/>&ndash;&gt;
+
+        <constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/>
+        <constructor-arg type="com.kaishengit.dao.WeixinDao" ref="weixinDao"/>
+
+
+    </bean>-->
+
+
+
+
+   <!-- <bean id="userService" class="com.kaishengit.service.UserService">
+        <property name="userDao" ref="userDao"/>
+        <property name="weixinDao" ref="weixinDao"/>
+    </bean>
+
+    <bean id="diDemo" class="com.kaishengit.service.Didemo">
+        <property name="score" value="6.66"/>
+        <property name="name" value="tom"/>
+        <property name="nameList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <property name="mySet">
+            <set>
+                <value>xxx</value>
+                <value>yyy</value>
+                <value>zzz</value>
+            </set>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="myUserDao" value-ref="userDao"/>
+            </map>
+        </property>
+        <property name="config">
+            <props>
+                <prop key="p1">v1</prop>
+                <prop key="p2">v2</prop>
+            </props>
+        </property>
+    </bean>-->
+
+
+
+
+
+
+    <!--<bean name="userDao,userDao2" class="com.kaishengit.dao.UserDao"/>-->
+    <!--<bean class="com.kaishengit.dao.UserDao"/>-->
+
+
+
+    <!--
+        别名：alias
+        name:bean中的id属性
+        alias:别名
+    -->
+    <!--<alias name="userDao"  alias="userDao2"/>-->
+
+</beans>
